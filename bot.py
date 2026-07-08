@@ -1,40 +1,16 @@
 import os
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = os.getenv("8823834353:AAGn8UViohFqT0_WlW5Tuq_MCVuBVy-zGDg")"
-ADMIN_ID = 8392569791
+TOKEN = os.getenv("TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if "problem" not in context.user_data:
-        context.user_data["problem"] = None
-    if "data" not in context.user_data:
-        context.user_data["data"] = None
+    await update.message.reply_text("البوت شغال 24/7 🔥")
 
-    bot_username = context.bot.username
-    keyboard = [
-        [InlineKeyboardButton("حول", callback_data="about")],
-        [InlineKeyboardButton("ارسال العمولة", callback_data="send")],
-        [InlineKeyboardButton("كتابة المشكلة", callback_data="problem")],
-        [InlineKeyboardButton("رفع البيانات", callback_data="data")],
-        [InlineKeyboardButton("ارسال الطلب", callback_data="send_request")],
-        [InlineKeyboardButton("📢 مشاركة البوت", url=f"https://t.me/{bot_username}")]
-    ]
-    await update.message.reply_text(
-        "أهلاً بك في بوت الدعم\nنحن هنا لحل جميع المشاكل التي تتعلق بالعمل\nالنسبة: 50%",
-        reply_markup=InlineKeyboardMarkup(keyboard)
-    )
+app = ApplicationBuilder().token(TOKEN).build()
+app.add_handler(CommandHandler("start", start))
 
-async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-    user_id = query.from_user.id
-
-    if query.data == "about":
-        await query.edit_message_text("نحن هنا لحل جميع المشاكل التي تتعلق بالعمل\nنسبة العمولة: 50%")
-
-    elif query.data == "problem":
-        await query.edit_message_text("اكتب مشكلتك الآن وأرسلها:")
+app.run_polling()        await query.edit_message_text("اكتب مشكلتك الآن وأرسلها:")
         context.user_data["step"] = "problem"
 
     elif query.data == "data":
