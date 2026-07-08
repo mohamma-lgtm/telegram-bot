@@ -1,7 +1,8 @@
+import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
 
-TOKEN = "8823834353:AAGn8UViohFqT0_WlW5Tuq_MCVuBVy-zGDg"
+TOKEN = os.getenv("8823834353:AAGn8UViohFqT0_WlW5Tuq_MCVuBVy-zGDg")"
 ADMIN_ID = 8392569791
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
