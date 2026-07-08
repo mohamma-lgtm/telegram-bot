@@ -5,36 +5,13 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 TOKEN = os.getenv("TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("البوت شغال 24/7 🔥")
+    await update.message.reply_text("مرحبا! البوت شغال 24/7 على Railway 🔥")
 
 app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 
-app.run_polling()        await query.edit_message_text("اكتب مشكلتك الآن وأرسلها:")
-        context.user_data["step"] = "problem"
-
-    elif query.data == "data":
-        await query.edit_message_text("الرجاء إرسال: الاسم، الكنية، رقم التواصل")
-        context.user_data["step"] = "data"
-
-    elif query.data == "send":
-        usdt_address = "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" # حط عنوان USDT تبعك هون
-        await query.edit_message_text(f"لإجراء عملية التواصل الرجاء إرسال 20 USDT إلى:\n`{usdt_address}`\n\nبعد الدفع ارسل صورة التحويل", parse_mode="Markdown")
-        context.user_data["step"] = "waiting_payment" # علامة انو ناطر صورة
-
-    elif query.data == "send_request":
-        problem_text = context.user_data.get("problem", "لم يتم رفع مشكلة")
-        data_text = context.user_data.get("data", "لم يتم رفع بيانات")
-
-        keyboard = [
-            [InlineKeyboardButton("موافق", callback_data=f"approve_{user_id}")],
-            [InlineKeyboardButton("رفض", callback_data=f"reject_{user_id}")]
-        ]
-        await context.bot.send_message(
-            ADMIN_ID,
-            f"📩 طلب جديد جاهز للموافقة\nمن: {query.from_user.full_name}\nID: `{user_id}`\n\n**المشكلة:**\n{problem_text}\n\n**البيانات:**\n{data_text}",
-            reply_markup=InlineKeyboardMarkup(keyboard),
-            parse_mode="Markdown"
+print("Bot started...")
+app.run_polling()            parse_mode="Markdown"
         )
         await query.edit_message_text("✅ تم ارسال طلبك للإدارة بنجاح، بانتظار الموافقة")
 
